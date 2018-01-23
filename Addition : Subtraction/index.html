@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+
+<body>
+    <div class="wrapper">
+        <div class="widget">
+            <img class="minus" src="./minus.png" />
+            <span class="counter"><input value='0' readonly/></span>
+            <img class="myCross" name="unclicked" src="./plus.png" />
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    var degree = 0;
+    var count = 0;
+    var cross = document.querySelector('.myCross');
+    var minus = document.querySelector('.minus');
+    var input = document.querySelector('.counter input');
+    cross.addEventListener('click', () => {
+        degree += 90;
+        cross.style.transform = 'rotate(' + degree + 'deg)';
+        if (cross.getAttribute('name') === 'unclicked') {
+            cross.style.width = '18px';
+            cross.style.height = '18px';
+            cross.style.padding = '10px';
+            cross.style.top = '20px';
+            cross.style.right = '0px';
+            minus.style.left = '0px';
+            cross.setAttribute('name', 'clicked');
+        }else{
+            count++;
+            input.value = count;
+        }
+
+    })
+
+    cross.addEventListener('mouseover',()=>{
+        cross.style.background = '#5ae3dc';
+        cross.style.boxShadow = '0 0 10px 2px #e0e0e0';
+        if(cross.getAttribute('name') === 'unclicked'){
+            cross.style.padding = '26px';
+        }
+        
+    })
+
+    cross.addEventListener('mouseout', ()=>{
+        cross.style.background = '#40C9CE';
+        cross.style.boxShadow = 'none';
+    })
+
+    minus.addEventListener('click', () => {
+        degree -= 90;
+        cross.style.transform = 'rotate(' + degree + 'deg)';
+        count--;
+        if(count < 0){
+            count = 0;
+        }
+        input.value = count;
+
+        if(count <= 0 && cross.getAttribute('name') !== 'unclicked'){
+            cross.style.width = '25px';
+            cross.style.height = '25px';
+            cross.style.padding = '25px';
+            cross.style.top = '0px';
+            cross.style.right = '24px';
+            minus.style.left = '30px';
+            cross.setAttribute('name', 'unclicked');
+        }
+    })
+</script>
